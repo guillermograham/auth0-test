@@ -3,6 +3,7 @@ require('dotenv').config();
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const express = require('express');
+const jwtDecode = require('jwt-decode');
 
 const app = express();
 
@@ -57,7 +58,10 @@ app.post('/login', async (req, res) => {
     };
 
     const { data } = await axios.post(url, payload);
-    res.json(data);
+    const token = data.access_token;
+    const decoded = jwtDecode(token);
+
+    res.json(decoded);
   } catch (error) {
     console.error(error);
 

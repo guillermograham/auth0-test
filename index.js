@@ -43,7 +43,7 @@ app.post('/signup', async (req, res) => {
 app.post('/login', async (req, res) => {
   try {
     const { password, username } = req.body;
-    if (password || !username) throw new Error('Missing required data');
+    if (!password || !username) throw new Error('Missing required data');
 
     const url = `https://${domain}/oauth/token`;
     const payload = {
